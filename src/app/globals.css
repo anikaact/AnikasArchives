@@ -1,9 +1,27 @@
 @import "tailwindcss";
 
-.font-anika {
-  font-family: "Glyphter", system-ui, sans-serif;
-}
+/* -----------------------------
+   Custom Anika font
+   ----------------------------- */
+   @font-face {
+    font-family: "AnikaFont";
+    src: url("/anika_font/fonts/AnikaFont.woff2") format("woff2"),
+         url("/anika_font/fonts/AnikaFont.woff") format("woff"),
+         url("/anika_font/fonts/AnikaFont.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  /* Utility class to apply your font */
+  .font-anika {
+    font-family: "AnikaFont", system-ui, sans-serif;
+  }
+  
 
+/* -----------------------------
+   Theme variables
+   ----------------------------- */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -16,6 +34,9 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* -----------------------------
+   Dark mode
+   ----------------------------- */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -23,8 +44,31 @@
   }
 }
 
+/* -----------------------------
+   Base body styles
+   ----------------------------- */
 body {
   background: var(--background);
   color: var(--foreground);
+  /* Keep Geist as the default sans font */
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
+
+/* -----------------------------
+   Animation
+   ----------------------------- */
+   @keyframes wobble {
+    0%, 100% {
+      transform: rotate(var(--angle-start, -5deg));
+    }
+    50% {
+      transform: rotate(var(--angle-end, 5deg));
+    }
+  }
+  
+  .wobble {
+    animation-name: wobble;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+  
