@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Sour_Gummy } from 'next/font/google';
+import NavLinks from "./NavLinks";
+import Link from "next/link";
+
+const sourGummy = Sour_Gummy({
+  subsets: ['latin'],
+  weight: ['400', '900'], // you can adjust available weights
+});
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,8 +32,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${sourGummy.className} antialiased`}>
+        {/* Toolbar */}
+        <nav className="sticky top-0 z-50 w-full flex items-center justify-between px-8 py-4 bg-[#f4bfc1] shadow-md">
+          {/* Left side: Home */}
+          <Link href="/" className="text-xl font-bold text-pink-900 hover:text-pink-700">
+            Home
+          </Link>
+
+          {/* Right side: Other links */}
+          <NavLinks />
+        </nav>
+
+        {/* Page content */}
         {children}
       </body>
     </html>
