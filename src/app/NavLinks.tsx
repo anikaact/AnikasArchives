@@ -14,14 +14,14 @@ export default function NavLinks() {
   const pathname = usePathname();
 
   return (
-    <div className="flex gap-6 text-lg text-white">
+    <div className="flex gap-6 text-lg text-[#dc828a]">
       {links.map((link) => {
         const isActive = pathname === link.href;
         return (
           <Link
             key={link.href}
             href={link.href}
-            className={`hover:text-pink-400 ${
+            className={`hover:text-white ${
               isActive ? "underline underline-offset-4 font-bold" : ""
             }`}
           >

@@ -1,4 +1,5 @@
 import { Sour_Gummy } from 'next/font/google';
+import Link from 'next/link';
 
 const sourGummy = Sour_Gummy({
   subsets: ['latin'],
@@ -9,6 +10,10 @@ export default function Home() {
   const lettersTop = ['a', 'n', 'i', 'k', 'a', 's'];
   const lettersBottom = ['a', 'r', 'c', 'h', 'i', 'v', 'e', 's'];
   const lettersEducation = ['e', 'd', 'u', 'c', 'a', 't', 'i', 'o', 'n'];
+  const lettersWork = [
+    'w', 'o', 'r', 'k', '',
+    'e', 'x', 'p', 'e', 'r', 'i', 'e', 'n', 'c', 'e', 's'
+  ];
 
   return (
 
@@ -53,6 +58,17 @@ export default function Home() {
         </div>
       </div>
 
+      {/* horizontal divider */}
+      <div className="my-10 text-center text-[#f4bfc1] text-2xl tracking-widest">
+        ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
+      </div>
+
+
+
+
+
+
+
       {/* "education" in SVG letters */}
       <div className="flex flex-wrap gap-1 justify-center mb-10">
         {lettersEducation.map((letter, idx) => (
@@ -67,34 +83,76 @@ export default function Home() {
 
       {/* Bell Tower section */}
       <div className="flex flex-col md:flex-row items-center md:items-start max-w-3xl gap-16">
-        <img
-          src="/Bell_tower.jpg"
-          alt="Bell Tower"
-          className="w-60 h-auto rounded-lg shadow"
-        />
+        {/* put the frame on the wrapper, not the img */}
+        <div className="w-200 h-auto rounded-lg border-8 border-[#eaa9ae]">
+          <img
+            src="/Bell_tower.jpg"
+            alt="Bell Tower"
+            className="shadow"
+          />
+        </div>
+
 
         {/* text + sticker side by side */}
         <div className="flex items-start gap-4 relative">
           <p className="text-lg text-black leading-relaxed relative">
-            Purdue’s iconic Bell Tower is a symbol of tradition and progress.
-            Rising above the center of campus, it reminds students of the
-            university’s heritage while inspiring them to look toward the future.
+            I’m a sophomore at Purdue University studying Computer Science and pursuing a
+            Certificate in Entrepreneurship & Innovation.
+            Curious about the journey so far? Click
+            <Link
+              href="/classes"
+              className="text-[#eaa9ae] hover:text-[#dc828a] transition-colors"
+            >
+              {" "} here {" "}
+            </Link>
+            to learn more about classes I've taken!
           </p>
 
           {/* sticker positioned at bottom-right of paragraph */}
           <img
             src="/bell_tower_sticker.png"
             alt="Bell Tower sticker"
-            className="w-16 h-auto rotate-20 absolute -bottom-20 right-0"
+            className="w-20 h-auto rotate-20 absolute -bottom-35 right-0 wobble"
             style={{
               filter:
                 "drop-shadow(0 0 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black) drop-shadow(0 1px 0 black) drop-shadow(0 -1px 0 black)"
             }}
           />
         </div>
-
-
       </div>
+      {/* "work experiences" title in SVG letters (single line with spacer) */}
+      <div className="flex flex-wrap gap-1 justify-center mt-16 mb-10">
+        {lettersWork.map((letter, idx) =>
+          letter === '' ? (
+            <div key={`work-space-${idx}`} className="w-[30px]" />
+          ) : (
+            <img
+              key={`work-${idx}`}
+              src={`/svgs/${letter}.svg`}
+              alt={letter}
+              className="h-[50px] w-auto"
+            />
+          )
+        )}
+      </div>
+
+      {/* Work experiences section (image on RIGHT) */}
+      <section className="w-full flex justify-center">
+        <div className="flex flex-col md:flex-row-reverse items-center md:items-start max-w-3xl gap-16">
+          <img
+            src="/Arrcus.jpg"
+            alt="Arrcus"
+            className="w-60 h-auto rounded-lg shadow"
+          />
+          <div className="flex items-start">
+            <p className="text-lg text-black leading-relaxed">
+              Purdue’s iconic Bell Tower is a symbol of tradition and progress.
+              Rising above the center of campus, it reminds students of the
+              university’s heritage while inspiring them to look toward the future.
+            </p>
+          </div>
+        </div>
+      </section>
 
     </main>
   );

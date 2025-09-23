@@ -33,12 +33,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${sourGummy.className} antialiased`}>
+      <body suppressHydrationWarning className={`${sourGummy.className} antialiased`}>
         {/* Toolbar */}
         <nav className="sticky top-0 z-50 w-full flex items-center justify-between px-8 py-4 bg-[#f4bfc1] shadow-md">
           {/* Left side: Home */}
-          <Link href="/" className="text-xl font-bold text-pink-900 hover:text-pink-700">
-            Home
+          <Link href="/" className="text-3xl font-bold text-[#dc828a] hover:text-white">
+          ♥
           </Link>
 
           {/* Right side: Other links */}
