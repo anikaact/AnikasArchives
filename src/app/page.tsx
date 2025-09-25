@@ -7,7 +7,7 @@ const sourGummy = Sour_Gummy({
 });
 
 export default function Home() {
-  const lettersTop = ['a', 'n', 'i', 'k', 'a', 's'];
+  const lettersTop = ['a', 'n', 'i', 'k', 'a', '\'', 's'];
   const lettersBottom = ['a', 'r', 'c', 'h', 'i', 'v', 'e', 's'];
   const lettersEducation = ['e', 'd', 'u', 'c', 'a', 't', 'i', 'o', 'n'];
   const lettersWork = [
@@ -121,7 +121,7 @@ export default function Home() {
 
       {/**-----------------------WORK EXPERIENCES SECTION------------------------/ */}
       {/* "work experiences" title in SVG letters (single line with spacer) */}
-      <div className="flex flex-wrap gap-1 justify-center mt-16 mb-10">
+      <div className="flex flex-wrap gap-1 justify-center mt-26 mb-10">
         {lettersWork.map((letter, idx) =>
           letter === '' ? (
             <div key={`work-space-${idx}`} className="w-[30px]" />
@@ -163,7 +163,7 @@ export default function Home() {
 
       {/**-----------------------HOBBIES SECTION------------------------/ */}
       {/* "hobbies" in SVG letters */}
-      <div className="flex flex-wrap gap-1 justify-center mt-16 mb-10">
+      <div className="flex flex-wrap gap-1 justify-center mt-26 mb-10">
         {lettersHobbies.map((letter, idx) => (
           <img
             key={`hobby-title-${idx}`}
@@ -176,42 +176,48 @@ export default function Home() {
 
       {/* Hobbies section (same layout as Education) */}
       <div className="flex flex-col md:flex-row items-center md:items-start max-w-3xl gap-16">
-        {/* Bell Tower section */}
-        <div className="flex flex-col md:flex-row items-center md:items-start max-w-3xl gap-16">
-          {/* put the frame on the wrapper, not the img */}
-          <div className="w-200 h-auto rounded-lg border-8 border-[#eaa9ae]">
-            <img
-              src="/Bell_tower.jpg"
-              alt="Bell Tower"
-              className="shadow"
-            />
-          </div>
 
+        {/* Image section */}
+        <div className="flex flex-col md:flex-row items-center md:items-start max-w-3xl gap-16">
+          {/* Image + caption wrapper with centered background + foreground */}
+          <div className="relative flex justify-center w-full">
+            {/* background (slightly bigger, behind) */}
+            <img
+              src="/Craft_fair.jpeg"
+              alt="Craft fair background"
+              className="absolute w-70 h-auto rounded-lg opacity-80 -translate-y-2"
+            />
+            {/* foreground image + caption */}
+            <div className="relative z-10 w-60 h-auto rounded-lg text-center">
+              <img
+                src="/Craft_fair.jpeg"
+                alt="Craft fair"
+                className="shadow w-full h-auto rounded-lg"
+              />
+              <p className="mt-1 text-sm text-black bg-transparent">
+                selling jewelry at an art fair
+              </p>
+            </div>
+          </div>
 
           {/* text + sticker side by side */}
           <div className="flex items-start gap-4 relative">
             <p className="text-lg text-black leading-relaxed relative">
-              I’m a sophomore at Purdue University studying Computer Science and pursuing a
-              Certificate in Entrepreneurship & Innovation.
-              Curious about the journey so far? Click
+              Some of my hobbies include playing pickleball, climbing, and hiking!
+              As you can probably tell from this website, I also love
               <Link
-                href="/classes"
+                href="/crafts"
                 className="text-[#eaa9ae] hover:text-[#dc828a] transition-colors"
               >
-                {" "} here {" "}
+                {" "} crafting
               </Link>
-              to learn more about classes I've taken!
+              !
             </p>
-
             {/* sticker positioned at bottom-right of paragraph */}
             <img
-              src="/bell_tower_sticker.png"
-              alt="Bell Tower sticker"
-              className="w-20 h-auto rotate-20 absolute -bottom-35 right-0 wobble"
-              style={{
-                filter:
-                  "drop-shadow(0 0 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black) drop-shadow(0 1px 0 black) drop-shadow(0 -1px 0 black)"
-              }}
+              src="/pickleball_sticker.jpg"
+              alt="Pickleball sticker"
+              className="w-20 h-auto absolute -bottom-25 right-0 wobble"
             />
           </div>
         </div>

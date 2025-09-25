@@ -38,7 +38,7 @@ export default function RootLayout({
         <nav className="sticky top-0 z-50 w-full flex items-center justify-between px-8 py-4 bg-[#f4bfc1] shadow-md">
           {/* Left side: Home */}
           <Link href="/" className="text-3xl font-bold text-[#dc828a] hover:text-white">
-          ♥
+            ♥
           </Link>
 
           {/* Right side: Other links */}
@@ -47,6 +47,58 @@ export default function RootLayout({
 
         {/* Page content */}
         {children}
+
+        {/* Footer (visible on every page) */}
+        <footer className="w-full bg-white text-black py-6 mt-12 shadow-inner">
+          <div className="max-w-4xl mx-auto flex flex-col items-center gap-4">
+            {/* Contact info */}
+            <p className="text-sm">
+              Reach me at{" "}
+              <a
+                href="mailto:anikathapar22@gmail.com"
+                className="hover:text-[#dc828a] transition-colors"
+              >
+                anikathapar22@gmail.com
+              </a>
+            </p>
+
+            {/* Social links */}
+            <div className="flex gap-6">
+              <a
+                href="https://www.linkedin.com/in/anika-thapar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#dc828a] transition-colors"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/anikaact"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#dc828a] transition-colors"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://www.instagram.com/anika._.t"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#dc828a] transition-colors"
+              >
+                Instagram
+              </a>
+              <a
+                href="https://www.tiktok.com/@anikaserves"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#dc828a] transition-colors"
+              >
+                TikTok
+              </a>
+            </div>
+          </div>
+        </footer>
       </body>
     </html>
   );

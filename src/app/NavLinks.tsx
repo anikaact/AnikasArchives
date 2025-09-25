@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const links = [
-  { href: "/content", label: "Content" },
   { href: "/career", label: "Career" },
-  { href: "/cooking", label: "Cooking" },
   { href: "/classes", label: "Classes" },
+  { href: "/cooking", label: "Cooking" },
+  { href: "/crafts", label: "Crafts" },
 ];
 
 export default function NavLinks() {
