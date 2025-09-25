@@ -76,26 +76,3 @@ body {
   animation: bell-wobble 2.4s infinite;
   will-change: transform;
 }
-
-
-.wavy-frame {
-  --s: 20px;       /* wave size */
-  --c: #f4bfc1;    /* border color */
-
-  display: inline-block;
-  padding: var(--s);
-  background: var(--c);
-  border-radius: calc(3.5 * var(--s));
-
-  /* this mask image generates the wavy cut */
-  -webkit-mask: 
-    radial-gradient(var(--s) circle, #000 98%, #0000) repeat;
-  -webkit-mask-size: calc(2 * var(--s)) calc(2 * var(--s));
-  mask: 
-    radial-gradient(var(--s) circle, #000 98%, #0000) repeat;
-  mask-size: calc(2 * var(--s)) calc(2 * var(--s));
-}
-.wavy-frame img {
-  display: block;
-  border-radius: inherit; /* follow outer radius */
-}
