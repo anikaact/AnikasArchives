@@ -183,7 +183,7 @@ export default function Home() {
           <div className="relative flex justify-center w-full">
             {/* background (slightly bigger, behind) */}
             <img
-              src="/Craft_fair.jpeg"
+              src="/frame.jpeg"
               alt="Craft fair background"
               className="absolute w-70 h-auto rounded-lg opacity-80 -translate-y-2"
             />
