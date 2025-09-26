@@ -1,5 +1,6 @@
 import { Sour_Gummy } from 'next/font/google';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const sourGummy = Sour_Gummy({
   subsets: ['latin'],
@@ -9,6 +10,7 @@ const sourGummy = Sour_Gummy({
 export default function Home() {
   const lettersTop = ['a', 'n', 'i', 'k', 'a', '\'', 's'];
   const lettersBottom = ['a', 'r', 'c', 'h', 'i', 'v', 'e', 's'];
+  const lettersAboutMe = ['a', 'b', 'o', 'u', 't', '', 'm', 'e'];
   const lettersEducation = ['e', 'd', 'u', 'c', 'a', 't', 'i', 'o', 'n'];
   const lettersWork = [
     'w', 'o', 'r', 'k', '',
@@ -26,11 +28,13 @@ export default function Home() {
           ch === '' ? (
             <div key={`space-${i}`} className="w-[20px]" />
           ) : (
-            <img
+            <Image
               key={`welcome-${i}`}
               src={`/svgs/${ch}.svg`}
               alt={ch}
               className="h-[50px] w-auto"
+              width={50}
+              height={50}
             />
           )
         )}
@@ -40,21 +44,25 @@ export default function Home() {
       <div className="flex flex-col items-center gap-2 mb-50">
         <div className="flex flex-wrap gap-1 justify-center">
           {lettersTop.map((letter, idx) => (
-            <img
+            <Image
               key={`top-${idx}`}
               src={`/svgs/${letter}.svg`}
               alt={letter}
               className="h-[100px] w-auto"
+              width={100}
+              height={100}
             />
           ))}
         </div>
         <div className="flex flex-wrap gap-1 justify-center">
           {lettersBottom.map((letter, idx) => (
-            <img
+            <Image
               key={`bottom-${idx}`}
               src={`/svgs/${letter}.svg`}
               alt={letter}
               className="h-[8=100px] w-auto"
+              width={100}
+              height={100}
             />
           ))}
         </div>
@@ -65,16 +73,36 @@ export default function Home() {
         ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
       </div>
 
+      {/* "About Me" in SVG letters */}
+      <div className="flex flex-wrap gap-1 justify-center mt-6 mb-36">
+        {lettersAboutMe.map((letter, idx) =>
+          letter === '' ? (
+            <div key={`about-space-${idx}`} className="w-[30px]" />
+          ) : (
+            <Image
+              key={`about-${idx}`}
+              src={`/svgs/${letter}.svg`}
+              alt={letter}
+              className="h-[80px] w-auto"
+              width={80}
+              height={80}
+            />
+          )
+        )}
+      </div>
+
 
       {/**-----------------------EDUCATION SECTION------------------------/ */}
       {/* "education" in SVG letters */}
       <div className="flex flex-wrap gap-1 justify-center mb-10">
         {lettersEducation.map((letter, idx) => (
-          <img
+          <Image
             key={`edu-${idx}`}
             src={`/svgs/${letter}.svg`}
             alt={letter}
             className="h-[50px] w-auto"
+            width={50}
+            height={50}
           />
         ))}
       </div>
@@ -84,18 +112,22 @@ export default function Home() {
         {/* Image + caption wrapper with centered background + foreground */}
         <div className="relative flex justify-center w-full max-w-[360px] text-center">
           {/* background frame, bigger & behind */}
-          <img
+          <Image
             src="/frame.png"
             alt="frame"
             className="absolute inset-0 -z-10 rounded-lg opacity-80 scale-135 translate-y-3"
+            width={360}
+            height={360}
           />
 
           {/* foreground image + caption */}
           <div className="relative z-10 rounded-lg">
-            <img
+            <Image
               src="/Bell_Tower.jpg"
               alt="Purdue Bell Tower"
               className="shadow w-full h-auto rounded-lg"
+              width={600}
+              height={400}
             />
             <p className="mt-1 text-sm text-black bg-transparent">
               Purdue Bell Tower
@@ -117,11 +149,11 @@ export default function Home() {
             >
               {" "} here {" "}
             </Link>
-            to learn more about classes I've taken!
+            to learn more about classes I&apos;ve taken!
           </p>
 
           {/* sticker positioned at bottom-right of paragraph */}
-          <img
+          <Image
             src="/bell_tower_sticker.png"
             alt="Bell Tower sticker"
             className="w-20 h-auto rotate-20 absolute -bottom-35 right-0 wobble"
@@ -129,6 +161,8 @@ export default function Home() {
               filter:
                 "drop-shadow(0 0 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black) drop-shadow(0 1px 0 black) drop-shadow(0 -1px 0 black)"
             }}
+            width={80}
+            height={80}
           />
         </div>
       </div>
@@ -140,11 +174,13 @@ export default function Home() {
           letter === '' ? (
             <div key={`work-space-${idx}`} className="w-[30px]" />
           ) : (
-            <img
+            <Image
               key={`work-${idx}`}
               src={`/svgs/${letter}.svg`}
               alt={letter}
               className="h-[50px] w-auto"
+              width={50}
+              height={50}
             />
           )
         )}
@@ -159,17 +195,21 @@ export default function Home() {
             {/* fixed-width container so frame & photo align */}
             <div className="relative w-70 text-center"> {/* 15rem wide; change as needed */}
               {/* background frame (slightly bigger, behind) */}
-              <img
+              <Image
                 src="/frame.png"
                 alt="Work image background frame"
                 className="absolute inset-0 -z-10 rounded-lg opacity-80 scale-110 -translate-y-5 -translate-x-6"
+                width={300}
+                height={220}
               />
               {/* foreground image + caption */}
               <div className="relative z-10 rounded-lg">
-                <img
+                <Image
                   src="/Arrcus.jpg"
                   alt="Arrcus"
                   className="shadow w-60 full h-auto rounded-lg"
+                  width={600}
+                  height={400}
                 />
                 <p className="mt-1 text-sm text-black bg-transparent -translate-x-">
                   Arrcus interns!
@@ -181,7 +221,7 @@ export default function Home() {
           {/* text + sticker side by side */}
           <div className="flex items-start gap-4 relative">
             <p className="text-lg text-black leading-relaxed relative">
-              I've interned at 2 companies so far: Arrcus (Summer 2024) and Sierra Ventures (Summer 2025).
+              I&apos;ve interned at 2 companies so far: Arrcus (Summer 2024) and Sierra Ventures (Summer 2025).
               Learn more about my roles and experiences on the
               <Link
                 href="/career"
@@ -201,11 +241,13 @@ export default function Home() {
       {/* "hobbies" in SVG letters */}
       <div className="flex flex-wrap gap-1 justify-center mt-26 mb-10">
         {lettersHobbies.map((letter, idx) => (
-          <img
+          <Image
             key={`hobby-title-${idx}`}
             src={`/svgs/${letter}.svg`}
             alt={letter}
             className="h-[50px] w-auto"
+            width={50}
+            height={50}
           />
         ))}
       </div>
@@ -218,17 +260,21 @@ export default function Home() {
           {/* Image + caption wrapper with centered background + foreground */}
           <div className="relative flex justify-center w-full">
             {/* background (slightly bigger, behind) */}
-            <img
+            <Image
               src="/frame.png"
               alt="Craft fair background"
               className="absolute w-100 h-auto rounded-lg opacity-80  -translate-y-10 -translate-x-1"
+              width={500}
+              height={380}
             />
             {/* foreground image + caption */}
             <div className="relative z-10 w-60 h-auto rounded-lg text-center">
-              <img
+              <Image
                 src="/Craft_fair.jpeg"
                 alt="Craft fair"
                 className="shadow w-full h-auto rounded-lg"
+                width={600}
+                height={400}
               />
               <p className="mt-1 text-sm text-black bg-transparent">
                 selling jewelry at an art fair
@@ -250,10 +296,12 @@ export default function Home() {
               !
             </p>
             {/* sticker positioned at bottom-right of paragraph */}
-            <img
+            <Image
               src="/pickleball_sticker.jpg"
               alt="Pickleball sticker"
               className="w-20 h-auto absolute -bottom-25 right-0 wobble"
+              width={80}
+              height={80}
             />
           </div>
         </div>
