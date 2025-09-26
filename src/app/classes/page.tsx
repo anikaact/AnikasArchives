@@ -11,38 +11,29 @@ type Course = {
   inProgress?: boolean;
 };
 
-/** Renders a word using per-letter SVGs from /public/letters/<char>.svg
- *  - Maps "0" to "o"
- *  - Letters are lowercased to match filenames like a.svg, b.svg, ...
- *  - Unknown chars fall back to a normal <span> so you still see them.
- */
 function SvgText({ text, size = 60, gap = 6 }: { text: string; size?: number; gap?: number }) {
   return (
     <div className="flex justify-center flex-wrap" style={{ gap }}>
       {text.split("").map((ch, idx) => {
         if (ch === " ") {
-          // space: fixed spacer so words separate nicely
           return <div key={idx} style={{ width: size * 0.45 }} />;
         }
 
         const lower = ch.toLowerCase();
-        const letter = lower === "0" ? "o" : lower; // <- 0 becomes o
-
-        // only [a-z0-9] are expected as SVGs (except 0 which maps to o)
+        const letter = lower === "0" ? "o" : lower;
         const isSvgy = /^[a-z0-9]$/.test(letter);
 
         if (isSvgy) {
           return (
             <img
               key={idx}
-              src={`/svgs/${letter}.svg`} // ensure files exist here
+              src={`/svgs/${letter}.svg`}
               alt={letter}
               style={{ width: size, height: "auto", display: "block" }}
             />
           );
         }
 
-        // Fallback for punctuation, etc.
         return (
           <span key={idx} style={{ fontSize: size * 0.85, lineHeight: 1 }}>
             {ch}
@@ -62,10 +53,7 @@ function StarRating({ value = 0, size = 40 }: { value?: number; size?: number })
 
         return (
           <div key={i} className="relative shrink-0" style={{ width: size, height: size }}>
-            {/* gray background star */}
             <img src="/gray_star.png" alt="" className="block w-full h-full" />
-
-            {/* yellow overlay star — clip by inset to avoid odd rectangular crop illusions */}
             {fill > 0 && (
               <div
                 className="absolute top-0 left-0 h-full pointer-events-none"
@@ -84,10 +72,13 @@ function StarRating({ value = 0, size = 40 }: { value?: number; size?: number })
 function CourseCard({ course }: { course: Course }) {
   const { code, title, grade, rating, language, content, review, inProgress } = course;
 
+  // Border color logic
+  const borderColor = code.startsWith("CS") ? "border-[#f4bfc1]" : "border-amber-200";
+
   return (
-    <div className="rounded-xl p-5 bg-white">
+    <div className={`rounded-xl p-5 bg-white border-2 ${borderColor}`}>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="text-2xl font-semibold">
+        <div className="text-xl font-semibold">
           <span className="text-black">{code}</span>
           {title ? <span className="text-neutral-500"> — {title}</span> : null}
           {inProgress ? <span className="ml-2 text-sm text-neutral-500">(in progress)</span> : null}
@@ -147,57 +138,71 @@ export default function ClassesPage() {
       review:
         "Useful and laid-back. Assignments were fun and easy to follow. Taught by the Undergraduate Student Board—I joined after taking it!",
     },
-    { 
-      code: "MA 261: Multivariable Calculus", 
-      grade: "A", 
-      rating: 4, 
-      content: "Planes, lines, and curves in three dimensions. Differential calculus of several variables; multiple integrals.", 
-      review: "I mainly self-studied for this class, and the content was interesting. " },
-    { 
-      code: "TDM 101: The Data Mine 1", 
-      grade: "A", 
-      rating: 4, 
-      language: "R", 
-      content: "R, Python, SQL, UNIX, web scraping", 
-      review: "I enjoyed the weekly projects in this class! I had never coded in R previous to this, and it was a smooth introduction into basic R concepts." },
-    { 
-      code: "ENTR 200: Intro to Entrepreneurship & Innovation", 
-      grade: "A", 
+    {
+      code: "MA 261: Multivariable Calculus",
+      grade: "A",
+      rating: 4,
+      content:
+        "Planes, lines, and curves in three dimensions. Differential calculus of several variables; multiple integrals.",
+      review: "I mainly self-studied for this class, and the content was interesting. ",
+    },
+    {
+      code: "TDM 101: The Data Mine 1",
+      grade: "A",
+      rating: 4,
+      language: "R",
+      content: "R, Python, SQL, UNIX, web scraping",
+      review:
+        "I enjoyed the weekly projects in this class! I had never coded in R previous to this, and it was a smooth introduction into basic R concepts.",
+    },
+    {
+      code: "ENTR 200: Intro to Entrepreneurship & Innovation",
+      grade: "A",
       rating: 5,
-      content: "Intro to entrepreneurship and technology commercialization, business skills, careers, and world economy.", 
-      review: "My professor for this class was super engaging! I also enjoyed coming up with a business venture with my group." },
+      content:
+        "Intro to entrepreneurship and technology commercialization, business skills, careers, and world economy.",
+      review:
+        "My professor for this class was super engaging! I also enjoyed coming up with a business venture with my group.",
+    },
   ];
 
   const spring2025: Course[] = [
-    { 
-      code: "CS 240: Programming in C", 
-      grade: "A", 
+    {
+      code: "CS 240: Programming in C",
+      grade: "A",
       rating: 5,
       language: "C",
-      content: "Pointers, memory management, data structures (linked lists, trees, hash tables), algorithms (sorting, searching), recursion, complexity analysis",
-      review: "Challenging but rewarding. The homework projects really helped solidify my understanding of programming concepts."
-     },
-    { 
-      code: "CS 182: Foundations of Computer Science", 
-      grade: "B+", 
-      rating: 5,
-      content: "Logic, proofs, sets, functions, relations, numbers, counting, algorithms, graphs, recursion, number theory, probability, Boolean logic, automata, and computability.", 
-      review: "I really enjoyed this class! I found myself taking extra steps to deeply understand course material, and thouroughly enjoyed the theoretical aspect of the content."
+      content:
+        "Pointers, memory management, data structures (linked lists, trees, hash tables), algorithms (sorting, searching), recursion, complexity analysis",
+      review:
+        "Challenging but rewarding. The homework projects really helped solidify my understanding of programming concepts.",
     },
-    { 
-      code: "SCLA 101: Transformative texts", 
-      grade: "A", 
+    {
+      code: "CS 182: Foundations of Computer Science",
+      grade: "B+",
+      rating: 5,
+      content:
+        "Logic, proofs, sets, functions, relations, numbers, counting, algorithms, graphs, recursion, number theory, probability, Boolean logic, automata, and computability.",
+      review:
+        "I really enjoyed this class! I found myself taking extra steps to deeply understand course material, and thouroughly enjoyed the theoretical aspect of the content.",
+    },
+    {
+      code: "SCLA 101: Transformative texts",
+      grade: "A",
       rating: 4.5,
-      content: "Critical reading and writing, analysis of literature and other texts, argumentation, research skills, communication skills",
-      review: "I enjoyed the discussions and essays in this class. I especially enjoyed researching and writing my creative final paper: Philosophy through Reddit."
-     },
-    { 
-      code: "TDM 102: The Data Mine 2", 
-      grade: "A", 
+      content:
+        "Critical reading and writing, analysis of literature and other texts, argumentation, research skills, communication skills",
+      review:
+        "I enjoyed the discussions and essays in this class. I especially enjoyed researching and writing my creative final paper: Philosophy through Reddit.",
+    },
+    {
+      code: "TDM 102: The Data Mine 2",
+      grade: "A",
       rating: 3,
-      content: "R environment, Python, visualizing data, UNIX, bash, regular expressions, SQL, XML and scraping data from the internet",
-      review: "I learned a lot about data analysis and visualization in this class."
-     },
+      content:
+        "R environment, Python, visualizing data, UNIX, bash, regular expressions, SQL, XML and scraping data from the internet",
+      review: "I learned a lot about data analysis and visualization in this class.",
+    },
   ];
 
   const fall2025: Course[] = [
@@ -209,38 +214,39 @@ export default function ClassesPage() {
 
   return (
     <main className="px-6 md:px-8 py-10">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-center text-5xl text-black mb-12">Classes</h1>
+      <div className="max-w-6xl mx-auto">
 
-        {/* Most recent first */}
+        {/* Fall 2025 */}
         <section className="mb-12 mt-12">
           <div className="mb-2 flex flex-col items-center">
             <SvgText text="Fall 2025" size={45} />
             <div className="text-neutral-500 italic text-sm mt-1">(in progress)</div>
           </div>
-          <div className="grid gap-6">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {fall2025.map((c, idx) => (
               <CourseCard key={`f25-${idx}`} course={c} />
             ))}
           </div>
         </section>
 
+        {/* Spring 2025 */}
         <section className="mb-12 mt-30">
           <div className="mb-6 flex justify-center">
             <SvgText text="Spring 2025" size={45} />
           </div>
-          <div className="grid gap-6">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {spring2025.map((c, idx) => (
               <CourseCard key={`s25-${idx}`} course={c} />
             ))}
           </div>
         </section>
 
+        {/* Fall 2024 */}
         <section className="mb-12 mt-30">
           <div className="mb-6 flex justify-center">
             <SvgText text="Fall 2024" size={45} />
           </div>
-          <div className="grid gap-6">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {fall2024.map((c, idx) => (
               <CourseCard key={`f24-${idx}`} course={c} />
             ))}
