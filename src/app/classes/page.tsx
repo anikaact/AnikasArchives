@@ -85,7 +85,7 @@ function CourseCard({ course }: { course: Course }) {
   const { code, title, grade, rating, language, content, review, inProgress } = course;
 
   return (
-    <div className="rounded-xl border border-neutral-200 shadow-sm p-5 bg-white">
+    <div className="rounded-xl p-5 bg-white">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="text-2xl font-semibold">
           <span className="text-black">{code}</span>
@@ -130,40 +130,81 @@ function CourseCard({ course }: { course: Course }) {
 export default function ClassesPage() {
   const fall2024: Course[] = [
     {
-      code: "CS 180",
+      code: "CS 180: Programming 1",
       grade: "B+",
       rating: 3,
       language: "Java",
       content:
         "Primitive data types and strings, single- & multi-dimensional arrays, OOP, exception handling, concurrency, I/O, GUIs, dynamic data structures, recursion",
       review:
-        "Enjoyed the semester-long client–server project, but the course was disorganized (first time the prof taught at Purdue).",
+        "I Enjoyed the semester-long client–server project, but the course was disorganized (first time the prof taught at Purdue).",
     },
     {
-      code: "CS 193",
+      code: "CS 193: Programming Tools",
       grade: "A",
       rating: 5,
       content: "Git, terminal commands, LaTeX",
       review:
         "Useful and laid-back. Assignments were fun and easy to follow. Taught by the Undergraduate Student Board—I joined after taking it!",
     },
-    { code: "Calc 3", grade: "A", rating: 4, content: "", review: "" },
-    { code: "TDM 101", grade: "A", rating: 4, language: "R", content: "", review: "" },
-    { code: "Entrepreneurship 200", grade: "A", rating: 5, content: "", review: "" },
+    { 
+      code: "MA 261: Multivariable Calculus", 
+      grade: "A", 
+      rating: 4, 
+      content: "Planes, lines, and curves in three dimensions. Differential calculus of several variables; multiple integrals.", 
+      review: "I mainly self-studied for this class, and the content was interesting. " },
+    { 
+      code: "TDM 101: The Data Mine 1", 
+      grade: "A", 
+      rating: 4, 
+      language: "R", 
+      content: "R, Python, SQL, UNIX, web scraping", 
+      review: "I enjoyed the weekly projects in this class! I had never coded in R previous to this, and it was a smooth introduction into basic R concepts." },
+    { 
+      code: "ENTR 200: Intro to Entrepreneurship & Innovation", 
+      grade: "A", 
+      rating: 5,
+      content: "Intro to entrepreneurship and technology commercialization, business skills, careers, and world economy.", 
+      review: "My professor for this class was super engaging! I also enjoyed coming up with a business venture with my group." },
   ];
 
   const spring2025: Course[] = [
-    { code: "CS 240", grade: "A", rating: 5 },
-    { code: "CS 182", grade: "B+", rating: 5 },
-    { code: "SCLA 101", grade: "A", rating: 4.5 },
-    { code: "TDM 102", grade: "A", rating: 3 },
+    { 
+      code: "CS 240: Programming in C", 
+      grade: "A", 
+      rating: 5,
+      language: "C",
+      content: "Pointers, memory management, data structures (linked lists, trees, hash tables), algorithms (sorting, searching), recursion, complexity analysis",
+      review: "Challenging but rewarding. The homework projects really helped solidify my understanding of programming concepts."
+     },
+    { 
+      code: "CS 182: Foundations of Computer Science", 
+      grade: "B+", 
+      rating: 5,
+      content: "Logic, proofs, sets, functions, relations, numbers, counting, algorithms, graphs, recursion, number theory, probability, Boolean logic, automata, and computability.", 
+      review: "I really enjoyed this class! I found myself taking extra steps to deeply understand course material, and thouroughly enjoyed the theoretical aspect of the content."
+    },
+    { 
+      code: "SCLA 101: Transformative texts", 
+      grade: "A", 
+      rating: 4.5,
+      content: "Critical reading and writing, analysis of literature and other texts, argumentation, research skills, communication skills",
+      review: "I enjoyed the discussions and essays in this class. I especially enjoyed researching and writing my creative final paper: Philosophy through Reddit."
+     },
+    { 
+      code: "TDM 102: The Data Mine 2", 
+      grade: "A", 
+      rating: 3,
+      content: "R environment, Python, visualizing data, UNIX, bash, regular expressions, SQL, XML and scraping data from the internet",
+      review: "I learned a lot about data analysis and visualization in this class."
+     },
   ];
 
   const fall2025: Course[] = [
-    { code: "CS 250", inProgress: true },
-    { code: "CS 251", inProgress: true },
-    { code: "Entrepreneurship 310", inProgress: true },
-    { code: "Stat 350", inProgress: true },
+    { code: "CS 250: Computer Architecture", inProgress: true },
+    { code: "CS 251: Data structures", inProgress: true },
+    { code: "Entr 310: Marketing and Management for New Ventures", inProgress: true },
+    { code: "Stat 350: Intro to Statistics", inProgress: true },
   ];
 
   return (

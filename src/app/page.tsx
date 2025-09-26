@@ -81,14 +81,28 @@ export default function Home() {
 
       {/* Bell Tower section */}
       <div className="flex flex-col md:flex-row items-center md:items-start max-w-3xl gap-16">
-        {/* put the frame on the wrapper, not the img */}
-        <div className="w-200 h-auto rounded-lg border-8 border-[#eaa9ae]">
+        {/* Image + caption wrapper with centered background + foreground */}
+        <div className="relative flex justify-center w-full max-w-[360px] text-center">
+          {/* background frame, bigger & behind */}
           <img
-            src="/Bell_tower.jpg"
-            alt="Bell Tower"
-            className="shadow"
+            src="/frame.png"
+            alt="frame"
+            className="absolute inset-0 -z-10 rounded-lg opacity-80 scale-135 translate-y-3"
           />
+
+          {/* foreground image + caption */}
+          <div className="relative z-10 rounded-lg">
+            <img
+              src="/Bell_Tower.jpg"
+              alt="Purdue Bell Tower"
+              className="shadow w-full h-auto rounded-lg"
+            />
+            <p className="mt-1 text-sm text-black bg-transparent">
+              Purdue Bell Tower
+            </p>
+          </div>
         </div>
+
 
 
         {/* text + sticker side by side */}
@@ -136,16 +150,37 @@ export default function Home() {
         )}
       </div>
 
-      {/* Work experiences section (image on RIGHT) */}
+      {/* Work experiences section (image on RIGHT, same format as Hobbies) */}
       <section className="w-full flex justify-center">
         <div className="flex flex-col md:flex-row-reverse items-center md:items-start max-w-3xl gap-16">
-          <img
-            src="/Arrcus.jpg"
-            alt="Arrcus"
-            className="w-60 h-auto rounded-lg shadow"
-          />
-          <div className="flex items-start">
-            <p className="text-lg text-black leading-relaxed">
+
+          {/* Image + caption wrapper with centered background + foreground (framed) */}
+          <div className="relative flex justify-center md:w-auto">
+            {/* fixed-width container so frame & photo align */}
+            <div className="relative w-70 text-center"> {/* 15rem wide; change as needed */}
+              {/* background frame (slightly bigger, behind) */}
+              <img
+                src="/frame.png"
+                alt="Work image background frame"
+                className="absolute inset-0 -z-10 rounded-lg opacity-80 scale-110 -translate-y-5 -translate-x-6"
+              />
+              {/* foreground image + caption */}
+              <div className="relative z-10 rounded-lg">
+                <img
+                  src="/Arrcus.jpg"
+                  alt="Arrcus"
+                  className="shadow w-60 full h-auto rounded-lg"
+                />
+                <p className="mt-1 text-sm text-black bg-transparent -translate-x-">
+                  Arrcus interns!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* text + sticker side by side */}
+          <div className="flex items-start gap-4 relative">
+            <p className="text-lg text-black leading-relaxed relative">
               I've interned at 2 companies so far: Arrcus (Summer 2024) and Sierra Ventures (Summer 2025).
               Learn more about my roles and experiences on the
               <Link
@@ -159,6 +194,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
 
 
       {/**-----------------------HOBBIES SECTION------------------------/ */}
@@ -183,9 +219,9 @@ export default function Home() {
           <div className="relative flex justify-center w-full">
             {/* background (slightly bigger, behind) */}
             <img
-              src="/frame.jpeg"
+              src="/frame.png"
               alt="Craft fair background"
-              className="absolute w-70 h-auto rounded-lg opacity-80 -translate-y-2"
+              className="absolute w-100 h-auto rounded-lg opacity-80  -translate-y-10 -translate-x-1"
             />
             {/* foreground image + caption */}
             <div className="relative z-10 w-60 h-auto rounded-lg text-center">
@@ -224,6 +260,6 @@ export default function Home() {
       </div>
 
 
-    </main>
+    </main >
   );
 }
