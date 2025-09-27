@@ -198,7 +198,7 @@ export default function Home() {
               <Image
                 src="/frame.png"
                 alt="Work image background frame"
-                className="absolute inset-0 -z-10 rounded-lg opacity-80 scale-110 -translate-y-5 -translate-x-6"
+                className="absolute inset-0 -z-10 rounded-lg opacity-80 scale-110 -translate-y-3 -translate-x-4"
                 width={300}
                 height={220}
               />
