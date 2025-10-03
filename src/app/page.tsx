@@ -21,52 +21,19 @@ export default function Home() {
 
   return (
 
-    <main className="p-8 flex flex-col items-center justify-center mb-4 mt-40">
-      {/* "welcome to" */}
-      <div className="flex flex-wrap gap-1 justify-center mb-8">
-        {['w', 'e', 'l', 'c', 'o', 'm', 'e', '', 't', 'o'].map((ch, i) =>
-          ch === '' ? (
-            <div key={`space-${i}`} className="w-[20px]" />
-          ) : (
-            <Image
-              key={`welcome-${i}`}
-              src={`/svgs/${ch}.svg`}
-              alt={ch}
-              className="h-[50px] w-auto"
-              width={50}
-              height={50}
-            />
-          )
-        )}
+    <main className="p-8 flex flex-col items-center justify-center mb-4 mt-20">
+      {/* ---- REPLACED: Single image for “welcome to” ---- */}
+      <div className="mb-8">
+        <Image
+          src="/welcome!.png"      // put welcome!.png in /public
+          alt="welcome to"
+          width={800}
+          height={400}
+          className="h-[440px] w-auto"
+          priority                  // load eagerly; it’s above the fold
+        />
       </div>
 
-      {/* "anikas archives" */}
-      <div className="flex flex-col items-center gap-2 mb-50">
-        <div className="flex flex-wrap gap-1 justify-center">
-          {lettersTop.map((letter, idx) => (
-            <Image
-              key={`top-${idx}`}
-              src={`/svgs/${letter}.svg`}
-              alt={letter}
-              className="h-[100px] w-auto"
-              width={100}
-              height={100}
-            />
-          ))}
-        </div>
-        <div className="flex flex-wrap gap-1 justify-center">
-          {lettersBottom.map((letter, idx) => (
-            <Image
-              key={`bottom-${idx}`}
-              src={`/svgs/${letter}.svg`}
-              alt={letter}
-              className="h-[8=100px] w-auto"
-              width={100}
-              height={100}
-            />
-          ))}
-        </div>
-      </div>
 
       {/* horizontal divider */}
       <div className="my-10 text-center text-[#f4bfc1] text-2xl tracking-widest">
