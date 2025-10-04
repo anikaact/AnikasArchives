@@ -23,14 +23,15 @@ export default function Home() {
 
     <main className="p-8 flex flex-col items-center justify-center mb-4 mt-20">
       {/* ---- REPLACED: Single image for “welcome to” ---- */}
-      <div className="mb-8">
+      <div className="mb-20 w-full max-w-4xl"> {/* control max width here */}
         <Image
-          src="/welcome!.png"      // put welcome!.png in /public
+          src="/welcome!.png"
           alt="welcome to"
-          width={800}
-          height={400}
-          className="h-[440px] w-auto"
-          priority                  // load eagerly; it’s above the fold
+          width={1600}     // any correct intrinsic ratio (e.g., 1600×800 for 2:1)
+          height={800}
+          className="w-full h-auto"   // <— drop fixed height
+          priority
+          sizes="(max-width: 1024px) 100vw, 1024px"
         />
       </div>
 
