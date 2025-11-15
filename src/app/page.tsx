@@ -1,6 +1,35 @@
+"use client";
 import { Sour_Gummy } from 'next/font/google';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from "framer-motion";
+
+function BalloonHearts() {
+  const hearts = ["♥", "♥", "♥"];
+
+  return (
+    <div className="flex flex-col items-center gap-20 mt-12 mb-28">
+      {hearts.map((heart, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{
+            delay: i * 0.45,
+            duration: 1.3,
+            ease: "easeOut",
+          }}
+          className="text-[#f4bfc1] text-8xl balloon-float"
+        >
+          {heart}
+        </motion.span>
+      ))}
+    </div>
+  );
+}
+
+
 
 const sourGummy = Sour_Gummy({
   subsets: ['latin'],
@@ -23,7 +52,7 @@ export default function Home() {
 
     <main className="p-8 flex flex-col items-center justify-center mb-4 mt-20">
       {/* ---- REPLACED: Single image for “welcome to” ---- */}
-      <div className="mb-20 w-full max-w-4xl"> {/* control max width here */}
+      <div className="mb-60 w-full max-w-4xl"> {/* control max width here */}
         <Image
           src="/welcome!.png"
           alt="welcome to"
@@ -36,13 +65,11 @@ export default function Home() {
       </div>
 
 
-      {/* horizontal divider */}
-      <div className="my-10 text-center text-[#f4bfc1] text-2xl tracking-widest">
-        ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
-      </div>
+      {/* vertical divider */}
+      <BalloonHearts />
 
       {/* "About Me" in SVG letters */}
-      <div className="flex flex-wrap gap-1 justify-center mt-6 mb-36">
+      <div className="flex flex-wrap gap-1 justify-center mt-20 mb-36">
         {lettersAboutMe.map((letter, idx) =>
           letter === '' ? (
             <div key={`about-space-${idx}`} className="w-[30px]" />

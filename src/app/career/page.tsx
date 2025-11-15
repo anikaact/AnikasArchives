@@ -40,7 +40,7 @@ export default function Career() {
       imageCaption: "Board members :)",
       roleCaption: "Panels & Social Wellness Initiative Lead",
       bullets: [
-        "Organized CS Tracks Panel and mental health events for 3,500+ students.",
+        "Organized CS Tracks Panel and mental health events for 3,500+ undergraduate CS, DS, and AI students.",
         "Collaborated with department staff to enhance community engagement.",
         "Managed event logistics and speaker outreach.",
       ],
@@ -57,9 +57,9 @@ export default function Career() {
             key={`career-${idx}`}
             src={`/svgs/${letter}.svg`}
             alt={letter}
-            className="h-[60px] w-auto"
-            width={60}
-            height={60}
+            className="h-[100px] w-auto"
+            width={100}
+            height={100}
           />
         ))}
       </div>

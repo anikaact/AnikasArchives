@@ -76,3 +76,43 @@ body {
   animation: bell-wobble 2.4s infinite;
   will-change: transform;
 }
+
+
+@keyframes blink {
+  0% { opacity: 0.2; }
+  20% { opacity: 1; }
+  40% { opacity: 0.2; }
+  100% { opacity: 0.2; }
+}
+
+.animate-heart1 {
+  animation: blink 1.2s infinite ease-in-out;
+}
+
+.animate-heart2 {
+  animation: blink 1.2s infinite ease-in-out;
+  animation-delay: 0.2s;
+}
+
+.animate-heart3 {
+  animation: blink 1.2s infinite ease-in-out;
+  animation-delay: 0.4s;
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.balloon-float {
+  animation: balloonFloat 5s ease-in-out infinite;
+}
+
+@keyframes balloonFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
