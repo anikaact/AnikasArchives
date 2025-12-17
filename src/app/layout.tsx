@@ -7,9 +7,8 @@ import Link from "next/link";
 
 const sourGummy = Sour_Gummy({
   subsets: ['latin'],
-  weight: ['400', '900'], // you can adjust available weights
+  weight: ['400', '900'],
 });
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`scroll-smooth ${geistSans.variable} ${geistMono.variable}`}>
       <body suppressHydrationWarning className={`${sourGummy.className} antialiased`}>
         {/* Toolbar */}
         <nav className="sticky top-0 z-50 w-full flex items-center justify-between px-8 py-4 bg-[#f4bfc1] shadow-md">

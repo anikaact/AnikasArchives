@@ -7,14 +7,7 @@ import ScrollReveal from './ScrollReveal';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
-const sourGummy = Sour_Gummy({
-  subsets: ['latin'],
-  weight: ['400', '700'], // adjust weights as needed
-});
-
 export default function Home() {
-  const lettersTop = ['a', 'n', 'i', 'k', 'a', '\'', 's'];
-  const lettersBottom = ['a', 'r', 'c', 'h', 'i', 'v', 'e', 's'];
   const lettersAboutMe = ['a', 'b', 'o', 'u', 't', '', 'm', 'e'];
   const lettersEducation = ['e', 'd', 'u', 'c', 'a', 't', 'i', 'o', 'n'];
   const lettersWork = [
@@ -42,30 +35,6 @@ export default function Home() {
       transition: {
         staggerChildren: 0.1,
         delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.17, 0.67, 0.83, 0.67] as const,
-      },
-    },
-  };
-
-  const frameVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 0.8,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.17, 0.67, 0.83, 0.67] as const,
       },
     },
   };
@@ -215,7 +184,7 @@ export default function Home() {
         {/* text + sticker side by side */}
         <ScrollReveal direction="right" delay={0.4} className="flex items-start gap-4 relative">
           <p className="text-lg text-black leading-relaxed relative">
-            I'm a sophomore at Purdue University studying Computer Science and pursuing a
+            I&apos;m a sophomore at Purdue University studying Computer Science and pursuing a
             Certificate in Entrepreneurship & Innovation.
             Curious about the journey so far? Click
             <Link

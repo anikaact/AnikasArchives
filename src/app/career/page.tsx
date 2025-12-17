@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Career() {
   const lettersCareer = ["c", "a", "r", "e", "e", "r"];
