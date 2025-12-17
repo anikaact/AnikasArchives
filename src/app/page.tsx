@@ -2,7 +2,10 @@
 import { Sour_Gummy } from 'next/font/google';
 import Link from 'next/link';
 import Image from 'next/image';
-import Hearts from './hearts';
+import LoadingOverlay from './LoadingOverlay';
+import ScrollReveal from './ScrollReveal';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 const sourGummy = Sour_Gummy({
   subsets: ['latin'],
@@ -20,95 +23,199 @@ export default function Home() {
   ];
   const lettersHobbies = ['h', 'o', 'b', 'b', 'i', 'e', 's'];
 
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  // Parallax transforms for photos
+  const photo1Y = useTransform(scrollYProgress, [0, 0.5], [0, 5]);
+  const photo2Y = useTransform(scrollYProgress, [0.2, 0.7], [0, 5]);
+  const photo3Y = useTransform(scrollYProgress, [0.4, 0.9], [0, 5]);
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.17, 0.67, 0.83, 0.67] as const,
+      },
+    },
+  };
+
+  const frameVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 0.8,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.17, 0.67, 0.83, 0.67] as const,
+      },
+    },
+  };
+
+  const cutoutTextVariants = {
+    hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      backgroundColor: "transparent",
+      transition: {
+        delay: i * 0.05,
+        duration: 0.5,
+        ease: [0.17, 0.67, 0.83, 0.67] as const,
+      },
+    }),
+    hover: {
+      y: -5,
+      scale: 1.05,
+      backgroundColor: "transparent",
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
 
   return (
-
-    <main className="p-8 flex flex-col items-center justify-center mb-4 mt-20">
-      {/* ---- REPLACED: Single image for “welcome to” ---- */}
-      <div className="mb-60 w-full max-w-4xl"> {/* control max width here */}
+    <>
+      <LoadingOverlay />
+      <main ref={containerRef} className="p-8 flex flex-col items-center justify-center mb-4 mt-20">
+      {/* ---- REPLACED: Single image for "welcome to" ---- */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="mb-60 w-full max-w-4xl"
+      >
         <Image
           src="/welcome!.png"
           alt="welcome to"
-          width={1600}     // any correct intrinsic ratio (e.g., 1600×800 for 2:1)
+          width={1600}
           height={800}
-          className="w-full h-auto"   // <— drop fixed height
+          className="w-full h-auto"
           priority
           sizes="(max-width: 1024px) 100vw, 1024px"
         />
-      </div>
+      </motion.div>
 
-
-      {/* vertical divider */}
-      <Hearts />
 
       {/* "About Me" in SVG letters */}
-      <div className="flex flex-wrap gap-1 justify-center mt-60 mb-36">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="flex flex-wrap gap-1 justify-center mt-60 mb-36"
+      >
         {lettersAboutMe.map((letter, idx) =>
           letter === '' ? (
             <div key={`about-space-${idx}`} className="w-[30px]" />
           ) : (
-            <Image
+            <motion.div
               key={`about-${idx}`}
-              src={`/svgs/${letter}.svg`}
-              alt={letter}
-              className="h-[80px] w-auto"
-              width={80}
-              height={80}
-            />
+              custom={idx}
+              variants={cutoutTextVariants}
+              whileHover="hover"
+              className="bg-transparent"
+              style={{ backgroundColor: "transparent" }}
+            >
+              <Image
+                src={`/svgs/${letter}.svg`}
+                alt={letter}
+                className="h-[80px] w-auto cutout-text bg-transparent"
+                width={80}
+                height={80}
+                style={{ backgroundColor: "transparent" }}
+              />
+            </motion.div>
           )
         )}
-      </div>
+      </motion.div>
 
 
       {/**-----------------------EDUCATION SECTION------------------------/ */}
       {/* "education" in SVG letters */}
-      <div className="flex flex-wrap gap-1 justify-center mb-10">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="flex flex-wrap gap-1 justify-center mb-10"
+      >
         {lettersEducation.map((letter, idx) => (
-          <Image
+          <motion.div
             key={`edu-${idx}`}
-            src={`/svgs/${letter}.svg`}
-            alt={letter}
-            className="h-[50px] w-auto"
-            width={50}
-            height={50}
-          />
+            custom={idx}
+            variants={cutoutTextVariants}
+            whileHover="hover"
+            className="bg-transparent"
+            style={{ backgroundColor: "transparent" }}
+          >
+            <Image
+              src={`/svgs/${letter}.svg`}
+              alt={letter}
+              className="h-[50px] w-auto cutout-text bg-transparent"
+              width={50}
+              height={50}
+              style={{ backgroundColor: "transparent" }}
+            />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Bell Tower section */}
-      <div className="flex flex-col md:flex-row items-center md:items-start max-w-3xl gap-16">
+      <ScrollReveal direction="up" className="flex flex-col md:flex-row items-center md:items-start max-w-3xl gap-16">
         {/* Image + caption wrapper with centered background + foreground */}
         <div className="relative flex justify-center w-full max-w-[360px] text-center">
           {/* background frame, bigger & behind */}
-          <Image
-            src="/frame.png"
-            alt="frame"
-            className="absolute inset-0 -z-10 rounded-lg opacity-80 scale-135 translate-y-3"
-            width={360}
-            height={360}
-          />
+          <ScrollReveal direction="scale" delay={0.2} className="absolute inset-0 -z-10">
+            <Image
+              src="/frame.png"
+              alt="frame"
+              className="rounded-lg scale-135 translate-y-3"
+              width={360}
+              height={360}
+            />
+          </ScrollReveal>
 
           {/* foreground image + caption */}
-          <div className="relative z-10 rounded-lg">
-            <Image
-              src="/Bell_Tower.jpg"
-              alt="Purdue Bell Tower"
-              className="shadow w-full h-auto rounded-lg"
-              width={600}
-              height={400}
-            />
-            <p className="mt-1 text-sm text-black bg-transparent">
-              Purdue Bell Tower
-            </p>
-          </div>
+          <ScrollReveal direction="left" delay={0.3} className="relative z-10 rounded-lg">
+            <motion.div style={{ y: photo1Y }}>
+              <Image
+                src="/Bell_Tower.jpg"
+                alt="Purdue Bell Tower"
+                className="shadow w-full h-auto rounded-lg photo-hover"
+                width={600}
+                height={400}
+              />
+              <p className="mt-1 text-sm text-black bg-transparent">
+                Purdue Bell Tower
+              </p>
+            </motion.div>
+          </ScrollReveal>
         </div>
 
 
 
         {/* text + sticker side by side */}
-        <div className="flex items-start gap-4 relative">
+        <ScrollReveal direction="right" delay={0.4} className="flex items-start gap-4 relative">
           <p className="text-lg text-black leading-relaxed relative">
-            I’m a sophomore at Purdue University studying Computer Science and pursuing a
+            I'm a sophomore at Purdue University studying Computer Science and pursuing a
             Certificate in Entrepreneurship & Innovation.
             Curious about the journey so far? Click
             <Link
@@ -132,62 +239,80 @@ export default function Home() {
             width={80}
             height={80}
           />
-        </div>
-      </div>
+        </ScrollReveal>
+      </ScrollReveal>
 
       {/**-----------------------WORK EXPERIENCES SECTION------------------------/ */}
       {/* "work experiences" title in SVG letters (single line with spacer) */}
-      <div className="flex flex-wrap gap-1 justify-center mt-26 mb-10">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="flex flex-wrap gap-1 justify-center mt-26 mb-10"
+      >
         {lettersWork.map((letter, idx) =>
           letter === '' ? (
             <div key={`work-space-${idx}`} className="w-[30px]" />
           ) : (
-            <Image
+            <motion.div
               key={`work-${idx}`}
-              src={`/svgs/${letter}.svg`}
-              alt={letter}
-              className="h-[50px] w-auto"
-              width={50}
-              height={50}
-            />
+              custom={idx}
+              variants={cutoutTextVariants}
+              whileHover="hover"
+              className="bg-transparent"
+              style={{ backgroundColor: "transparent" }}
+            >
+              <Image
+                src={`/svgs/${letter}.svg`}
+                alt={letter}
+                className="h-[50px] w-auto cutout-text bg-transparent"
+                width={50}
+                height={50}
+                style={{ backgroundColor: "transparent" }}
+              />
+            </motion.div>
           )
         )}
-      </div>
+      </motion.div>
 
       {/* Work experiences section (image on RIGHT, same format as Hobbies) */}
-      <section className="w-full flex justify-center">
+      <ScrollReveal direction="up" className="w-full flex justify-center">
         <div className="flex flex-col md:flex-row-reverse items-center md:items-start max-w-3xl gap-16">
 
           {/* Image + caption wrapper with centered background + foreground (framed) */}
           <div className="relative flex justify-center md:w-auto">
             {/* fixed-width container so frame & photo align */}
-            <div className="relative w-70 text-center"> {/* 15rem wide; change as needed */}
+            <div className="relative w-70 text-center">
               {/* background frame (slightly bigger, behind) */}
-              <Image
-                src="/frame.png"
-                alt="Work image background frame"
-                className="absolute inset-0 -z-10 rounded-lg opacity-80 scale-110 -translate-y-3 -translate-x-4"
-                width={300}
-                height={220}
-              />
-              {/* foreground image + caption */}
-              <div className="relative z-10 rounded-lg">
+              <ScrollReveal direction="scale" delay={0.2} className="absolute inset-0 -z-10">
                 <Image
-                  src="/Arrcus.jpg"
-                  alt="Arrcus"
-                  className="shadow w-60 full h-auto rounded-lg"
-                  width={600}
-                  height={400}
+                  src="/frame.png"
+                  alt="Work image background frame"
+                  className="rounded-lg scale-110 -translate-y-3 -translate-x-4"
+                  width={300}
+                  height={220}
                 />
-                <p className="mt-1 text-sm text-black bg-transparent -translate-x-">
-                  Arrcus interns!
-                </p>
-              </div>
+              </ScrollReveal>
+              {/* foreground image + caption */}
+              <ScrollReveal direction="right" delay={0.3} className="relative z-10 rounded-lg">
+                <motion.div style={{ y: photo2Y }}>
+                  <Image
+                    src="/Arrcus.jpg"
+                    alt="Arrcus"
+                    className="shadow w-58 full h-auto rounded-lg photo-hover"
+                    width={200}
+                    height={400}
+                  />
+                  <p className="mt-1 text-sm text-black bg-transparent -translate-x-">
+                    Arrcus interns!
+                  </p>
+                </motion.div>
+              </ScrollReveal>
             </div>
           </div>
 
           {/* text + sticker side by side */}
-          <div className="flex items-start gap-4 relative">
+          <ScrollReveal direction="left" delay={0.4} className="flex items-start gap-4 relative">
             <p className="text-lg text-black leading-relaxed relative">
               I&apos;ve interned at 2 companies so far: Arrcus (Summer 2024) and Sierra Ventures (Summer 2025).
               Learn more about my roles and experiences on the
@@ -199,59 +324,76 @@ export default function Home() {
               </Link>
               page!
             </p>
-          </div>
+          </ScrollReveal>
         </div>
-      </section>
+      </ScrollReveal>
 
 
 
       {/**-----------------------HOBBIES SECTION------------------------/ */}
       {/* "hobbies" in SVG letters */}
-      <div className="flex flex-wrap gap-1 justify-center mt-26 mb-10">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="flex flex-wrap gap-1 justify-center mt-26 mb-10"
+      >
         {lettersHobbies.map((letter, idx) => (
-          <Image
+          <motion.div
             key={`hobby-title-${idx}`}
-            src={`/svgs/${letter}.svg`}
-            alt={letter}
-            className="h-[50px] w-auto"
-            width={50}
-            height={50}
-          />
+            custom={idx}
+            variants={cutoutTextVariants}
+            whileHover="hover"
+            className="bg-transparent"
+            style={{ backgroundColor: "transparent" }}
+          >
+            <Image
+              src={`/svgs/${letter}.svg`}
+              alt={letter}
+              className="h-[50px] w-auto cutout-text bg-transparent"
+              width={50}
+              height={50}
+              style={{ backgroundColor: "transparent" }}
+            />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Hobbies section (same layout as Education) */}
-      <div className="flex flex-col md:flex-row items-center md:items-start max-w-3xl gap-16">
-
+      <ScrollReveal direction="up" className="flex flex-col md:flex-row items-center md:items-start max-w-3xl gap-16">
         {/* Image section */}
         <div className="flex flex-col md:flex-row items-center md:items-start max-w-3xl gap-16">
           {/* Image + caption wrapper with centered background + foreground */}
           <div className="relative flex justify-center w-full">
             {/* background (slightly bigger, behind) */}
-            <Image
-              src="/frame.png"
-              alt="Craft fair background"
-              className="absolute w-100 h-auto rounded-lg opacity-80  -translate-y-10 -translate-x-1"
-              width={500}
-              height={380}
-            />
-            {/* foreground image + caption */}
-            <div className="relative z-10 w-60 h-auto rounded-lg text-center">
+            <ScrollReveal direction="scale" delay={0.2} className="absolute">
               <Image
-                src="/Craft_fair.jpeg"
-                alt="Craft fair"
-                className="shadow w-full h-auto rounded-lg"
-                width={600}
-                height={400}
+                src="/frame.png"
+                alt="Craft fair background"
+                className="w-100 h-auto rounded-lg -translate-y-10 -translate-x-1"
+                width={500}
+                height={380}
               />
-              <p className="mt-1 text-sm text-black bg-transparent">
-                selling jewelry at an art fair
-              </p>
-            </div>
+            </ScrollReveal>
+            {/* foreground image + caption */}
+            <ScrollReveal direction="left" delay={0.3} className="relative z-10 w-60 h-auto rounded-lg text-center">
+              <motion.div style={{ y: photo3Y }}>
+                <Image
+                  src="/Craft_fair.jpeg"
+                  alt="Craft fair"
+                  className="shadow w-full h-auto rounded-lg photo-hover"
+                  width={600}
+                  height={400}
+                />
+                <p className="mt-1 text-sm text-black bg-transparent">
+                  selling jewelry at an art fair
+                </p>
+              </motion.div>
+            </ScrollReveal>
           </div>
 
           {/* text + sticker side by side */}
-          <div className="flex items-start gap-4 relative">
+          <ScrollReveal direction="right" delay={0.4} className="flex items-start gap-4 relative">
             <p className="text-lg text-black leading-relaxed relative">
               Some of my hobbies include playing pickleball, climbing, and hiking!
               As you can probably tell from this website, I also love
@@ -271,11 +413,10 @@ export default function Home() {
               width={80}
               height={80}
             />
-          </div>
+          </ScrollReveal>
         </div>
-      </div>
-
-
-    </main >
+      </ScrollReveal>
+    </main>
+    </>
   );
 }

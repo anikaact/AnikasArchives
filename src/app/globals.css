@@ -116,3 +116,121 @@ body {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
   50% { transform: translateY(-12px) rotate(3deg); }
 }
+
+/* -----------------------------
+   Loading & Entrance Animations
+   ----------------------------- */
+
+@keyframes drawBorder {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes textGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 0px rgba(244, 191, 193, 0));
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Remove any background from cutout text - ensure transparency */
+.cutout-text,
+.cutout-text *,
+img.cutout-text {
+  background: transparent !important;
+  background-color: transparent !important;
+  mix-blend-mode: normal;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-entrance {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-entrance-delay-1 {
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-entrance-delay-2 {
+  animation: fadeInUp 0.8s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+.animate-entrance-delay-3 {
+  animation: fadeInUp 0.8s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+.animate-scale-in {
+  animation: fadeInScale 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Photo hover effects */
+.photo-hover {
+  transition: transform 0.3s ease-out, filter 0.3s ease-out;
+}
+
+.photo-hover:hover {
+  transform: translateY(-5px) scale(1.02);
+  filter: brightness(1.05);
+}
+
+/* Parallax effect for photos */
+.parallax-photo {
+  transition: transform 0.3s ease-out;
+}
+
+/* Cutout text glow animation - no background */
+.cutout-text {
+  animation: textGlow 3s ease-in-out infinite;
+  transition: transform 0.3s ease-out;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.cutout-text:hover {
+  transform: translateY(-5px) scale(1.05);
+}
+
+/* Ensure SVG images have no background */
+.cutout-text img,
+img.cutout-text {
+  background: transparent !important;
+  background-color: transparent !important;
+}
