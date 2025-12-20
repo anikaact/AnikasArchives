@@ -20,15 +20,27 @@ export default function Career() {
 
   const roles = [
     {
+      company: "FloVision Solutions",
+      season: "Fall 2025 - Present",
+      image: "/FloVision.jpg",
+      imageCaption: "",
+      roleCaption: "Machine Learning Intern",
+      bullets: [
+        "Trained a custom model to identify box labels and benchmarked various OCR engines to select the highest-performing model for text extraction.",
+        "Leveraged CVAT to annotate 500+ frames across 20+ clips, establishing a robust ground truth for model retraining and performance benchmarking.",
+      ],
+      imageOnRight: false,
+    },
+    {
       company: "Sierra Ventures",
       season: "Summer 2025",
       image: "/Sierra_Ventures.jpg",
       imageCaption: "Helping out at a networking event!",
       roleCaption: "AI Automation Intern",
       bullets: [
-        "Built AI-powered sourcing pipelines (Zapier, Python, Sheets).",
-        "Scored early-stage traction using custom signals and scripts.",
-        "Published weekly AI digest for the investment team.",
+        "Developed automated Zapier and Clay workflows, reducing manual research for 80% of the investment team.",
+        "Extracted startup data using BeautifulSoup and integrated insights into dynamic Google Sheets pipelines.",
+        "Built Python workflows with OpenAI API, applying prompt engineering to enrichanalysis and sourcing.",
       ],
       imageOnRight: true,
     },
@@ -39,9 +51,9 @@ export default function Career() {
       imageCaption: "Arrcus Interns!",
       roleCaption: "Software Engineering Intern",
       bullets: [
-        "Developed internal tooling for networking workflows.",
-        "Collaborated with engineers on feature prototyping.",
-        "Wrote scripts and docs to accelerate team velocity.",
+        "Developed Python script using pexpect and multi-threading to detect core dumps, improved detection by 5x.",
+        "Built automated email notification system, delivering comprehensive core dump reports to engineering team",
+        "Implemented 4 Jinja2 templates to streamline configuration testing across multiple networking protocols",
       ],
       imageOnRight: false,
     },
