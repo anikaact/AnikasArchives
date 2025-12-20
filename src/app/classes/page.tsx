@@ -1,4 +1,9 @@
+"use client";
+
 // app/classes/page.tsx
+import { useState } from "react";
+import Image from "next/image";
+import ScrollReveal from "../ScrollReveal";
 
 type Course = {
   code: string;
@@ -25,11 +30,14 @@ function SvgText({ text, size = 60, gap = 6 }: { text: string; size?: number; ga
 
         if (isSvgy) {
           return (
-            <img
+            <Image
               key={idx}
               src={`/svgs/${letter}.svg`}
               alt={letter}
-              style={{ width: size, height: "auto", display: "block" }}
+              width={size}
+              height={size}
+              className="bg-transparent"
+              style={{ width: size, height: "auto", display: "block", backgroundColor: "transparent" }}
             />
           );
         }
@@ -53,13 +61,13 @@ function StarRating({ value = 0, size = 40 }: { value?: number; size?: number })
 
         return (
           <div key={i} className="relative shrink-0" style={{ width: size, height: size }}>
-            <img src="/gray_star.png" alt="" className="block w-full h-full" />
+            <Image src="/gray_star.png" alt="" width={size} height={size} className="block w-full h-full" />
             {fill > 0 && (
               <div
                 className="absolute top-0 left-0 h-full pointer-events-none"
                 style={{ width: "100%", clipPath: `inset(0 ${100 - fill}% 0 0)` }}
               >
-                <img src="/yellow_star.png" alt="" className="block w-full h-full" />
+                <Image src="/yellow_star.png" alt="" width={size} height={size} className="block w-full h-full" />
               </div>
             )}
           </div>
@@ -71,48 +79,91 @@ function StarRating({ value = 0, size = 40 }: { value?: number; size?: number })
 
 function CourseCard({ course }: { course: Course }) {
   const { code, title, grade, rating, language, content, review, inProgress } = course;
-
-  // Border color logic
-  const borderColor = code.startsWith("CS") ? "border-[#f4bfc1]" : "border-amber-200";
+  const [isFlipped, setIsFlipped] = useState(false);
 
   return (
-    <div className={`rounded-xl p-5 bg-white border-2 ${borderColor}`}>
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="text-xl font-semibold">
-          <span className="text-black">{code}</span>
-          {title ? <span className="text-neutral-500"> — {title}</span> : null}
-          {inProgress ? <span className="ml-2 text-sm text-neutral-500">(in progress)</span> : null}
+    <div
+      className="relative h-[300px] cursor-pointer perspective-1000"
+      onClick={() => setIsFlipped(!isFlipped)}
+      style={{ perspective: "1000px" }}
+    >
+      <div
+        className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
+          isFlipped ? "rotate-y-180" : ""
+        }`}
+        style={{
+          transformStyle: "preserve-3d",
+          transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        }}
+      >
+        {/* Front Side - Pink Background */}
+        <div
+          className="absolute w-full h-full rounded-xl p-6 bg-[#f4bfc1] flex flex-col justify-between backface-hidden shadow-lg"
+          style={{
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(0deg)",
+          }}
+        >
+          <div className="flex-1 flex flex-col justify-center items-center text-center">
+            <div className="text-xl font-semibold text-black mb-4">
+              <div>{code}</div>
+              {title && <div className="text-lg text-black/80 mt-1">{title}</div>}
+              {inProgress && (
+                <div className="text-sm text-black/60 mt-2 italic">(in progress)</div>
+              )}
+            </div>
+            
+            {typeof rating === "number" && (
+              <div className="mb-4">
+                <StarRating value={rating} size={32} />
+              </div>
+            )}
+            
+            {grade && (
+              <div className="text-lg font-medium text-black">
+                Grade: <span className="font-bold">{grade}</span>
+              </div>
+            )}
+          </div>
+          
+          <div className="text-xs text-black/60 mt-4">Click to flip</div>
         </div>
 
-        <div className="flex items-center gap-4 shrink-0">
-          {typeof rating === "number" ? <StarRating value={rating} size={28} /> : null}
-          {grade ? (
-            <span className="text-sm text-neutral-600">
-              Grade: <span className="text-black">{grade}</span>
-            </span>
-          ) : null}
+        {/* Back Side - Content and Review */}
+        <div
+          className="absolute w-full h-full rounded-xl p-6 bg-white border-2 border-[#f4bfc1] flex flex-col backface-hidden shadow-lg overflow-y-auto"
+          style={{
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+          }}
+        >
+          <div className="text-xl font-semibold text-black mb-4">{code}</div>
+          
+          <div className="space-y-3 text-sm leading-relaxed text-black flex-1">
+            {language && (
+              <div>
+                <span className="text-neutral-500 font-medium">Language:</span>{" "}
+                <span className="text-black">{language}</span>
+              </div>
+            )}
+            {content && (
+              <div>
+                <span className="text-neutral-500 font-medium">Content:</span>{" "}
+                <span className="text-black">{content}</span>
+              </div>
+            )}
+            {review && (
+              <div className="mt-4 pt-4 border-t border-[#f4bfc1]">
+                <span className="text-neutral-500 font-medium">Review:</span>{" "}
+                <span className="text-black italic">{review}</span>
+              </div>
+            )}
+          </div>
+          
+          <div className="text-xs text-black/60 mt-4 text-center">Click to flip back</div>
         </div>
-      </div>
-
-      <div className="mt-3 space-y-2 text-sm leading-relaxed text-black">
-        {language ? (
-          <p>
-            <span className="text-neutral-500">Language:</span>{" "}
-            <span className="text-black">{language}</span>
-          </p>
-        ) : null}
-        {content ? (
-          <p>
-            <span className="text-neutral-500">Content:</span>{" "}
-            <span className="text-black">{content}</span>
-          </p>
-        ) : null}
-        {review ? (
-          <p>
-            <span className="text-neutral-500">Review:</span>{" "}
-            <span className="text-black">{review}</span>
-          </p>
-        ) : null}
       </div>
     </div>
   );
@@ -206,10 +257,43 @@ export default function ClassesPage() {
   ];
 
   const fall2025: Course[] = [
-    { code: "CS 250: Computer Architecture", inProgress: true },
-    { code: "CS 251: Data structures", inProgress: true },
-    { code: "Entr 310: Marketing and Management for New Ventures", inProgress: true },
-    { code: "Stat 350: Intro to Statistics", inProgress: true },
+    {
+      code: "CS 250: Computer Architecture",
+      grade: "B+",
+      rating: 2.5,
+      content:
+        "Digital Logic, Assembly Language, Computer Organization, Memory Hierarchy, I/O, Interrupts, Pipelining, Caches, Virtual Memory, and Parallel Computing",
+      review:
+        "The content I learned in this class was extremely interesting, but the professor was not organized. I had to do a lot of self-studying to keep up.",
+    },
+    {
+      code: "CS 251: Data Structures and Algorithms",
+      grade: "B+",
+      rating: 5,
+      language: "C++",
+      content:
+        "Runtime Analysis, Sorting, Graph Algorithms, trees, and hash tables",
+      review:
+        "I enjoyed this class! The professor was very engaging and the content was interesting. I learned a lot about data structures and algorithms.",
+    },
+    {
+      code: "Stat 350: Intro to Statistics",
+      grade: "B+",
+      rating: 4.5,
+      language: "R",
+      content:
+        "data-driven foundation in applied statistics, covering everything from exploratory analysis and experimental design to complex statistical inference and multiple regression using modern software.",
+      review:
+        "It was hard getting used to the flipped-learning format(watching videos at home and then coming to class to practice), but I enjoyed the content and the professor was very engaging. I was able to collaborate with peers in tackling complex problems.",
+    },
+    {
+      code: "Entr 310: Marketing and Management for New Ventures",
+      grade: "A",
+      rating: 5,
+      content:
+        "advanced proficiency in essential venture creation and management skills, including marketing, finance, project management, leadership, and ethics.",
+      review: "I absolutely LOVED this class and my professor!! He went above and beyond in finding incredible guest speakers, and gave me career advice. I was able to learn so much about building a business from successful entrepreneurs. Thank you Professor Scott!",
+    },
   ];
 
   return (
@@ -217,41 +301,53 @@ export default function ClassesPage() {
       <div className="max-w-6xl mx-auto">
 
         {/* Fall 2025 */}
-        <section className="mb-12 mt-12">
-          <div className="mb-2 flex flex-col items-center">
-            <SvgText text="Fall 2025" size={45} />
-            <div className="text-neutral-500 italic text-sm mt-1">(in progress)</div>
-          </div>
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {fall2025.map((c, idx) => (
-              <CourseCard key={`f25-${idx}`} course={c} />
-            ))}
-          </div>
-        </section>
+        <ScrollReveal direction="up">
+          <section className="mb-12 mt-12">
+            <div className="mb-2 flex flex-col items-center">
+              <SvgText text="Fall 2025" size={45} />
+              <div className="text-neutral-500 italic text-sm mt-1">(in progress)</div>
+            </div>
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {fall2025.map((c, idx) => (
+                <ScrollReveal key={`f25-${idx}`} direction="scale" delay={idx * 0.1}>
+                  <CourseCard course={c} />
+                </ScrollReveal>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
 
         {/* Spring 2025 */}
-        <section className="mb-12 mt-30">
-          <div className="mb-6 flex justify-center">
-            <SvgText text="Spring 2025" size={45} />
-          </div>
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {spring2025.map((c, idx) => (
-              <CourseCard key={`s25-${idx}`} course={c} />
-            ))}
-          </div>
-        </section>
+        <ScrollReveal direction="up">
+          <section className="mb-12 mt-30">
+            <div className="mb-6 flex justify-center">
+              <SvgText text="Spring 2025" size={45} />
+            </div>
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {spring2025.map((c, idx) => (
+                <ScrollReveal key={`s25-${idx}`} direction="scale" delay={idx * 0.1}>
+                  <CourseCard course={c} />
+                </ScrollReveal>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
 
         {/* Fall 2024 */}
-        <section className="mb-12 mt-30">
-          <div className="mb-6 flex justify-center">
-            <SvgText text="Fall 2024" size={45} />
-          </div>
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {fall2024.map((c, idx) => (
-              <CourseCard key={`f24-${idx}`} course={c} />
-            ))}
-          </div>
-        </section>
+        <ScrollReveal direction="up">
+          <section className="mb-12 mt-30">
+            <div className="mb-6 flex justify-center">
+              <SvgText text="Fall 2024" size={45} />
+            </div>
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {fall2024.map((c, idx) => (
+                <ScrollReveal key={`f24-${idx}`} direction="scale" delay={idx * 0.1}>
+                  <CourseCard course={c} />
+                </ScrollReveal>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
       </div>
     </main>
   );
