@@ -268,7 +268,7 @@ export default function ClassesPage() {
     },
     {
       code: "CS 251: Data Structures and Algorithms",
-      grade: "B+",
+      grade: "A-",
       rating: 5,
       language: "C++",
       content:
@@ -278,7 +278,7 @@ export default function ClassesPage() {
     },
     {
       code: "Stat 350: Intro to Statistics",
-      grade: "B+",
+      grade: "A-",
       rating: 4.5,
       language: "R",
       content:
