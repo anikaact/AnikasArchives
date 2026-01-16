@@ -295,17 +295,38 @@ export default function ClassesPage() {
       review: "I absolutely LOVED this class and my professor!! He went above and beyond in finding incredible guest speakers, and gave me career advice. I was able to learn so much about building a business from successful entrepreneurs. Thank you Professor Scott!",
     },
   ];
+  const spring2026: Course[] = [
+    {code: "CS 252: Systems Programming", inProgress: true},
+    {code: "CS 307: Software Engineering I", inProgress: true},
+    {code: "CS 407: Introduction to AI", inProgress: true},
+    {code: "COM 217: Science Writing and Presentation", inProgress: true},
+  ]
 
   return (
     <main className="px-6 md:px-8 py-10">
       <div className="max-w-6xl mx-auto">
+
+        {/* Spring 2026 */}
+        <ScrollReveal direction="up">
+          <section className="mb-12 mt-30">
+            <div className="mb-6 flex justify-center">
+              <SvgText text="Spring 2026" size={45} />
+            </div>
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {spring2026.map((c, idx) => (
+                <ScrollReveal key={`s26-${idx}`} direction="scale" delay={idx * 0.1}>
+                  <CourseCard course={c} />
+                </ScrollReveal>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
 
         {/* Fall 2025 */}
         <ScrollReveal direction="up">
           <section className="mb-12 mt-12">
             <div className="mb-2 flex flex-col items-center">
               <SvgText text="Fall 2025" size={45} />
-              <div className="text-neutral-500 italic text-sm mt-1">(in progress)</div>
             </div>
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {fall2025.map((c, idx) => (
