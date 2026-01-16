@@ -168,7 +168,7 @@ export default function Home() {
               <Image
                 src="/Bell_Tower.jpg"
                 alt="Purdue Bell Tower"
-                className="shadow w-full h-auto rounded-lg photo-hover"
+                className="shadow w-full h-auto rounded-lg"
                 width={600}
                 height={400}
               />
@@ -268,7 +268,7 @@ export default function Home() {
                   <Image
                     src="/Arrcus.jpg"
                     alt="Arrcus"
-                    className="shadow w-58 full h-auto rounded-lg photo-hover"
+                    className="shadow w-58 full h-auto rounded-lg"
                     width={200}
                     height={400}
                   />
@@ -350,7 +350,7 @@ export default function Home() {
                 <Image
                   src="/Craft_fair.jpeg"
                   alt="Craft fair"
-                  className="shadow w-full h-auto rounded-lg photo-hover"
+                  className="shadow w-full h-auto rounded-lg"
                   width={600}
                   height={400}
                 />
